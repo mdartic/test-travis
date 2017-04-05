@@ -1,0 +1,25 @@
+sudo: required
+dist: trusty
+language: node_js
+
+node_js:
+  - '4.4.2'
+
+script:
+  - 'npm install'
+  - 'npm run build'
+  - 'ls $TRAVIS_BUILD_DIR/'
+
+cache:
+  directories:
+    - node_modules
+
+deploy:
+  provider: releases
+  api_key: "$GITHUB_API_TOKEN"
+  file:
+    - "$TRAVIS_BUILD_DIR/*"
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
